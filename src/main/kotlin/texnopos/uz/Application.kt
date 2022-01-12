@@ -21,7 +21,7 @@ import texnopos.uz.plugins.*
 import texnopos.uz.utils.TokenManager
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
+    embeddedServer(Netty, port = System.getenv("PORT").toInt(), host = "0.0.0.0") {
         val config = HoconApplicationConfig(ConfigFactory.load())
         val tokenManager = TokenManager(config)
         install(ContentNegotiation) {
@@ -32,8 +32,9 @@ fun main() {
                 verifier(tokenManager.verifyJWT())
                 realm = config.property("realm").getString()
                 validate { jwtCredential ->
-                    if (jwtCredential.payload.getClaim("username").asString().isNotEmpty())
-                        JWTPrincipal(jwtCredential.payload) else null
+                    if (jwtCredential.payload.getClaim("username").asString()
+                            .isNotEmpty()
+                    ) JWTPrincipal(jwtCredential.payload) else null
                 }
             }
         }
