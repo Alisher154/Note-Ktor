@@ -17,7 +17,7 @@ fun Application.noteRoutes() {
     routing {
 
         get("/"){
-            call.respondText("Hello world")
+            call.respondRedirect("www.ktor.io")
         }
         post("/add") {
             val request = call.receive<NoteRequest>()
