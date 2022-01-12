@@ -16,6 +16,9 @@ fun Application.noteRoutes() {
     val db = DatabaseConnection.database
     routing {
 
+        get("/"){
+            call.respondRedirect("www.ktor.io")
+        }
         post("/add") {
             val request = call.receive<NoteRequest>()
             val result = db.insert(NoteEntity) {
