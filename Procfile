@@ -1,1 +1,1 @@
-web: build/install/uz.texnopos.ktorresponseexample/bin/uz.texnopos.ktorresponseexample
+web: build/install/KtorResponseExample/bin/KtorResponseExample

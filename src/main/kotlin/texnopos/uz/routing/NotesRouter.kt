@@ -16,6 +16,9 @@ fun Application.noteRoutes() {
     val db = DatabaseConnection.database
     routing {
 
+        get("/"){
+            call.respondText("Hello world")
+        }
         post("/add") {
             val request = call.receive<NoteRequest>()
             val result = db.insert(NoteEntity) {
