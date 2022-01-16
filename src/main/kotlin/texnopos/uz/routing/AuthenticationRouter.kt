@@ -29,7 +29,7 @@ fun Application.authenticationRoutes() {
 
             if (!userCredentials.isValidCredentials()) {
                 call.respond(
-                    HttpStatusCode.BadRequest,
+                    HttpStatusCode.OK,
                     NoteResponse(
                         success = false,
                         message = "Username greater than 2 and password greater than 6",
@@ -49,7 +49,7 @@ fun Application.authenticationRoutes() {
                 .firstOrNull()
             if (user != null) {
                 call.respond(
-                    HttpStatusCode.BadRequest,
+                    HttpStatusCode.OK,
                     NoteResponse(
                         success = false,
                         message = "User already exists, please try a different username",
@@ -80,7 +80,7 @@ fun Application.authenticationRoutes() {
 
             if (!userCredentials.isValidCredentials()) {
                 call.respond(
-                    HttpStatusCode.BadRequest,
+                    HttpStatusCode.OK,
                     NoteResponse(
                         success = false,
                         message = "Username greater than 2 and password greater than 6",
@@ -104,7 +104,7 @@ fun Application.authenticationRoutes() {
                 .firstOrNull()
             if (user == null) {
                 call.respond(
-                    HttpStatusCode.BadRequest,
+                    HttpStatusCode.OK,
                     NoteResponse(
                         success = false,
                         message = "Invalid username or password.",
@@ -116,7 +116,7 @@ fun Application.authenticationRoutes() {
             val doesPasswordMatch = BCrypt.checkpw(password, user.password)
             if (!doesPasswordMatch) {
                 call.respond(
-                    HttpStatusCode.BadRequest,
+                    HttpStatusCode.OK,
                     NoteResponse(
                         success = false,
                         message = "Invalid username or password.",
@@ -125,6 +125,7 @@ fun Application.authenticationRoutes() {
                 )
                 return@post
             }
+
             val token = tokenManager.generateJWT(user)
             call.respond(
                 HttpStatusCode.OK,
