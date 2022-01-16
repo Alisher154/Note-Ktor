@@ -22,7 +22,7 @@ import texnopos.uz.utils.TokenManager
 
 fun main() {
     //System.getenv("PORT").toInt()
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
+    embeddedServer(Netty, port = System.getenv("PORT").toInt(), host = "0.0.0.0") {
         val config = HoconApplicationConfig(ConfigFactory.load())
         val tokenManager = TokenManager(config)
         install(ContentNegotiation) {
